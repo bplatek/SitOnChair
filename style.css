@@ -601,6 +601,12 @@
     font-size: 24px;
 }
 
+.section-calculator select:focus {
+  border-color: #38C3AD;
+  box-shadow: inset 0 0 0 1px #38C3AD;
+  outline: none;
+}
+
 .section-calculator .checkbox-label {
     display: block;
     overflow: hidden;
