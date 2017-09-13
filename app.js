@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+  // ............. slider .................
+
   var next = document.querySelector(".next");
   var prev = document.querySelector(".prev");
   var slides = document.querySelectorAll(".slider-cnt .slide");
@@ -33,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // ............. calculator .................
 
+  //myChair - zmienna przechowujaca konfiguracje fotela w zaleznosci od wartosci select-ów
   var myChair = {
     model: {
       name: '',
@@ -53,16 +56,19 @@ document.addEventListener('DOMContentLoaded', function() {
       return this.model.price + this.material.price + this.color.price + this.transport.price + " zł";
     }
   };
+  //modelInfo - zmienna przechowujaca ceny foteli
   var modelInfo = {
     'Chair Clair': 669,
     'Chair Margarita': 899,
     'Chair Selena': 1499
   }
+  //modelInfo - zmienna przechowujaca informacje o doplatach za poszczegolne kolory
   var colorInfo = {
     'Czerwony': 149,
     'Czarny': 0,
     'Pomarańczowy': 249
   }
+  //modelInfo - zmienna przechowujaca informacje o doplatach za materialy
   var materialInfo = {
     'Tkanina': 0,
     'Skóra': 599
@@ -77,13 +83,14 @@ document.addEventListener('DOMContentLoaded', function() {
   var summaryPrices = document.querySelector('.summary-prices ul');
   var summaryTotalAmount = document.querySelector('.summary-total-amount');
 
+  //umozliwienie rozwiniecia pol kolor i material dopiero po wybraniu modelu fotela
   calculatorForm.addEventListener('click', function() {
     if (chairModelSelect.value !== '') {
       chairColorSelect.removeAttribute('disabled');
       chairMaterialSelect.removeAttribute('disabled');
     }
   })
-
+  //sledzenie zmian wartosci pola select z modelami foteli i aktualizacja zmiennej myChair
   chairModelSelect.addEventListener('change', function(event) {
       myChair.model.name = chairModelSelect.value;
       myChair.model.price = modelInfo[chairModelSelect.value];
@@ -91,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
       summaryPrices.children[0].innerText = myChair.model.price;
       summaryTotalAmount.innerText = myChair.calculatePrice();
   })
-
+  //sledzenie zmian wartosci pola select z kolorami foteli i aktualizacja zmiennej myChair
   chairColorSelect.addEventListener('change', function(event) {
       myChair.color.name = chairColorSelect.value;
       myChair.color.price = colorInfo[chairColorSelect.value];
@@ -99,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
       summaryPrices.children[1].innerText = '+ ' + myChair.color.price;
       summaryTotalAmount.innerText = myChair.calculatePrice();
   })
-
+  //sledzenie zmian wartosci pola select z materialami i aktualizacja zmiennej myChair
   chairMaterialSelect.addEventListener('change', function(event) {
       myChair.material.name = chairMaterialSelect.value;
       myChair.material.price = materialInfo[chairMaterialSelect.value];
@@ -107,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
       summaryPrices.children[2].innerText = '+ ' + myChair.material.price;
       summaryTotalAmount.innerText = myChair.calculatePrice();
   })
-
+  //sledzenie zaznaczenia opcji transport i aktualizacja zmiennej myChair
   transportAdded.addEventListener('click', function(event) {
       if (transportAdded.checked) {
         myChair.transport.price = transportPrice;
